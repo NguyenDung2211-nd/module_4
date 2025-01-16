@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:insert="~{/layout::library}"></th:block>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        h3 {
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #495057;
+            background-color: #ffffff;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            width: 60%;
+            margin: 10px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p::before {
+            content: " ";
+            font-weight: bold;
+            display: inline-block;
+            width: 100px;
+            color: #343a40;
+        }
+
+        p:nth-child(2)::before {
+            content: "Tên:";
+        }
+
+        p:nth-child(3)::before {
+            content: "Giá:";
+        }
+
+        p:nth-child(4)::before {
+            content: "Mô tả:";
+        }
+
+    </style>
+</head>
+<body>
+<h3>Thông tin chi tiết</h3>
+<p th:text="${product.name}"></p>
+<p th:text="${product.price}"></p>
+<p th:text="${product.description}"></p>
+</body>
+</html>

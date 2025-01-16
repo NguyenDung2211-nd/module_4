@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:insert="~{/layout::library}"></th:block>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        form {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            text-align: center;
+            color: #343a40;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            align-self: center;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #6c757d;
+        }
+
+    </style>
+</head>
+<body>
+<form action="/product/create" method="post" th:object="${product}">
+    <h2>Thêm mới</h2>
+    Tên:
+    <input th:field="*{name}" placeholder="Nhập tên sản phẩm"><br>
+    Giá:
+    <input th:field="*{price}" placeholder="Nhập giá"><br>
+    Mô Tả:
+    <input th:field="*{description}" placeholder="Nhập mô tả"><br>
+    <button>Thêm</button>
+</form>
+</body>
+</html>

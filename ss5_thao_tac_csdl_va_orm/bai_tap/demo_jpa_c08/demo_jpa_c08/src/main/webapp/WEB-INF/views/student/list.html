@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:insert="~{layout/layout::library}"></th:block>
+</head>
+<body>
+<div th:replace="~{layout/layout::navbar}"></div>
+<a href="/students/create">Add new Student</a>
+<h2>Student List</h2>
+<table>
+    <tr>
+        <th>STT</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Class Id</th>
+        <th>Detail1</th>
+        <th>Detail2</th>
+    </tr>
+
+    <tr th:each="student,status:${studentList}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${student.name}"></td>
+        <td th:switch="${student.gender}">
+            <span th:case="1" th:text="Male"></span>
+            <span th:case="0" th:text="FeMale"></span>
+            <span th:case="*" th:text="LGBT"></span>
+        </td>
+        <td th:text="${student.classId}"></td>
+        <td><a th:href="@{/students/detail(id=${student.id})}">Detail1-RequestParam</a></td>
+        <td><a th:href="@{/students/detail/__${student.id}__}">Detail1-PathVariable</a></td>
+    </tr>
+    <tr>
+        <td colspan="7" th:if="${studentList.isEmpty()}" th:text="${'Danh sách trống'}">
+        </td>
+    </tr>
+</table>
+</body>
+</html>
