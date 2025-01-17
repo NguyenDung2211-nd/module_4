@@ -16,8 +16,14 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("")
-    public String showList(Model model){
-        model.addAttribute("products", productService.findAll());
+    public String showList(@RequestParam(value = "name", required = false) String name, Model model) {
+        if (name != null && !name.isEmpty()) {
+            model.addAttribute("products", productService.search(name));
+            model.addAttribute("isSearch", true);
+        } else {
+            model.addAttribute("products", productService.findAll());
+            model.addAttribute("isList", false);
+        }
         return "list";
     }
 
@@ -35,7 +41,7 @@ public class ProductController {
         return "redirect:/product";
     }
 
-    @GetMapping("/update/{id}")
+    @GetMapping("/{id}/update")
     public String editFormUpdate(@PathVariable("id") int id, Model model) {
         Product product = productService.getById(id);
         if (product != null) {
@@ -45,7 +51,7 @@ public class ProductController {
         return "redirect:/product";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/{id}/update")
     public String update(@PathVariable("id") int id, @ModelAttribute Product product, RedirectAttributes redirectAttributes) {
         product.setId(id);
         productService.update(product);
@@ -53,23 +59,18 @@ public class ProductController {
         return "redirect:/product";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id, RedirectAttributes redirectAttributes ) {
        productService.delete(id);
        redirectAttributes.addFlashAttribute("mess", "Xóa sản phẩm thành công");
         return "redirect:/product";
     }
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/{id}/detail")
     public String detail(@PathVariable("id") int id, Model model){
         Product Product = productService.getById(id);
         model.addAttribute("product", Product);
         return "detail";
     }
 
-    @PostMapping("/search")
-    public String search(@RequestParam String name, Model model){
-        model.addAttribute("products", productService.search(name));
-        return"list";
-    }
 }

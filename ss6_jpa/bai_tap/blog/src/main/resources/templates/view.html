@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Blog Detail</h3>
+<p>
+  <a th:href="@{/list}">Back to Blog List</a>
+</p>
+
+<div>
+  <h4>Name: <span th:text="${blog.name}"></span></h4>
+  <p>Blogger: <span th:text="${blog.blogger}"></span></p>
+  <p>URL: <a th:href="${blog.url}" th:text="${blog.url}"></a></p>
+</div>
+</body>
+</html>

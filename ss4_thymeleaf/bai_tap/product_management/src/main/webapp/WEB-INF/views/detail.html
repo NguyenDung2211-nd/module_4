@@ -42,11 +42,11 @@
             content: "Tên:";
         }
 
-        p:nth-child(4)::before {
+        p:nth-child(3)::before {
             content: "Giá:";
         }
 
-        p:nth-child(6)::before {
+        p:nth-child(4)::before {
             content: "Mô tả:";
         }
 
@@ -54,11 +54,8 @@
 </head>
 <body>
 <h3>Thông tin chi tiết</h3>
-Name:
 <p th:text="${product.name}"></p>
-Giá:
 <p th:text="${product.price}"></p>
-Mô tả:
 <p th:text="${product.description}"></p>
 </body>
 </html>

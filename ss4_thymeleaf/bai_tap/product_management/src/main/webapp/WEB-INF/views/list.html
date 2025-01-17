@@ -87,31 +87,38 @@
 </head>
 <body>
 <div class="container">
-<h1>Danh sách Sản phẩm</h1>
-<form th:action="@{/product/search}" method="post">
-    <input type="text" name="name" placeholder="Tìm kiếm sản phẩm">
-    <button type="submit">Tìm kiếm</button>
-</form>
-<a href="/product/create">Thêm mới</a>
-<p th:if="${mess}" class="text-danger" th:text="${mess}"></p>
-<table>
-    <tr>
-        <th>STT</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Mô tả</th>
-        <th colspan="3">Chức Năng</th>
-    </tr>
-    <tr th:each="product,status :${products}">
-        <td th:text="${status.count}"></td>
-        <td th:text="${product.name}"></td>
-        <td th:text="${product.price}"></td>
-        <td th:text="${product.description}"></td>
-        <td><a th:href="@{/product/detail/{id}(id=${product.id})}">Xem Chi tiết</a></td>
-        <td><a th:href="@{/product/{index}/update(index=${status.index})}">Sửa</a></td>
-        <td><a th:href="@{/product/delete/{id}(id=${product.id})}">Xóa</a></td>
-    </tr>
-</table>
+    <h1>Danh sách Sản phẩm</h1>
+    <form th:action="@{/product}" method="get">
+        <input type="text" name="name" placeholder="Tìm kiếm sản phẩm">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+    <a href="/product/create">Thêm mới</a>
+    <p th:if="${mess}" class="text-danger" th:text="${mess}"></p>
+
+    <div th:if="${!#lists.isEmpty(products)}">
+        <table>
+            <tr>
+                <th>STT</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Mô tả</th>
+                <th colspan="3">Chức Năng</th>
+            </tr>
+            <tr th:each="product,status :${products}">
+                <td th:text="${status.count}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.description}"></td>
+                <td><a th:href="@{/product/{id}/detail(id=${product.id})}">Xem Chi tiết</a></td>
+                <td><a th:href="@{/product/{index}/update(index=${status.index})}">Sửa</a></td>
+                <td><a th:href="@{/product/{id}/delete(id=${product.id})}">Xóa</a></td>
+            </tr>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(products)}">
+        <p th:if="${isSearch}">Không có sản phẩm nào được tìm thấy.</p>
+        <p th:if="${!isList}">Danh sách sản phẩm hiện đang trống.</p>
+    </div>
 </div>
 </body>
 </html>
