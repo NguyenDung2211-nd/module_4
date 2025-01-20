@@ -1,7 +1,6 @@
 package com.example.blog.controller;
 
 import com.example.blog.entity.Blog;
-import com.example.blog.exception.ResourceNotFoundException;
 import com.example.blog.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,7 +47,7 @@ public class BlogController {
 
     @GetMapping("/{id}/update")
     public String showEdit(Model model, @PathVariable Integer id) {
-        Blog blog = blogService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Blog with ID " + id + " not found."));
+        Blog blog = blogService.findById(id).get();
         model.addAttribute("blog", blog);
         return "update";
     }
@@ -62,7 +61,6 @@ public class BlogController {
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
-        Blog blog = blogService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Blog with ID " + id + " not found."));
         blogService.delete(id);
         redirectAttributes.addFlashAttribute("mess", "Xóa sản phẩm thành công");
         return "redirect:/list";
@@ -70,7 +68,7 @@ public class BlogController {
 
     @GetMapping("/{id}/view")
     public String viewDetail(@PathVariable("id") Integer id, Model model) {
-        Blog blog = blogService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Blog with ID " + id + " not found."));
+        Blog blog = blogService.findById(id).get();
         model.addAttribute("blog", blog);
         return "view";
     }

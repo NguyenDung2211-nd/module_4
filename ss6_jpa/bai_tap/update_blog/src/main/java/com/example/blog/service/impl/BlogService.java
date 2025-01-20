@@ -1,7 +1,6 @@
 package com.example.blog.service.impl;
 
 import com.example.blog.entity.Blog;
-import com.example.blog.exception.ResourceNotFoundException;
 import com.example.blog.repository.IBlogRepository;
 import com.example.blog.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,6 @@ public class BlogService implements IService {
 
     @Override
     public void delete(Integer id) {
-        if(!blogRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Blog with ID " + id + " not found.");
-        }
         blogRepository.deleteById(id);
     }
 
@@ -41,14 +37,14 @@ public class BlogService implements IService {
 
     @Override
     public void updateBlog(Integer id, Blog blog) {
-        if (!blogRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Blog with ID " + id + " not found.");
+        Optional<Blog> existingBlog = blogRepository.findById(id);
+        if (existingBlog.isPresent()) {
+            Blog updatedBlog = existingBlog.get();
+            updatedBlog.setName(blog.getName());
+            updatedBlog.setBlogger(blog.getBlogger());
+            updatedBlog.setUrl(blog.getUrl());
+            blogRepository.save(updatedBlog);
         }
-        Blog existingBlog = blogRepository.findById(id).get();
-        existingBlog.setName(blog.getName());
-        existingBlog.setBlogger(blog.getBlogger());
-        existingBlog.setUrl(blog.getUrl());
-        blogRepository.save(existingBlog);
     }
 
 

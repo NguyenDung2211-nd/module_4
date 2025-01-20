@@ -76,12 +76,12 @@
 <body>
 <h3>Thêm mới Blog</h3>
 <p>
-  <a th:href="@{/list}">
+  <a th:href="@{/blog}">
     Quay lại
   </a>
 </p>
 <div id="form">
-  <form action="#" th:action="@{/create}" th:object="${blog}"
+  <form action="#" th:action="@{/blog/create}" th:object="${blog}"
         method="POST" novalidate="novalidate">
     <div>
       <label>Name</label>
@@ -90,6 +90,12 @@
     <div>
       <label>Blogger</label>
       <input type="text" placeholder="Nhập Blogger" th:field="*{blogger}"/>
+    </div>
+    <div>
+      <label>Category</label>
+      <select th:field="*{category.id}">
+        <option th:each="item:${categoryList}" th:value="${item.id}"  th:text="${item.name}"></option>
+      </select>
     </div>
     <div>
       <label>URL</label>

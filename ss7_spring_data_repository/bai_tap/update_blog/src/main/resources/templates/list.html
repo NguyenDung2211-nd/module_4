@@ -91,8 +91,18 @@
   </style>
 </head>
 <body>
+<div>
+  <form action="/list">
+    <input name="name" type="text">
+    <select name="categoryId">
+      <option disabled selected>Choose Category</option>
+      <option th:each="item:${categoryList}" th:value="${item.id}" th:text="${item.name}"></option>
+    </select>
+    <button type="submit">Search</button>
+  </form>
+</div>
 <div class="notify">
-  <a href="/create">Thêm mới Blog</a>
+  <a href="/blog/create">Thêm mới Blog</a>
 </div>
 <table id="blog">
   <thead>
@@ -100,26 +110,36 @@
     <th>Id</th>
     <th>Name</th>
     <th>Blogger</th>
+      <th>Category</th>
     <th>View</th>
     <th>Action</th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="blog : ${blog}">
-    <td th:text="${blog.id}"></td>
+  <tr th:each="blog, status : ${blog}">
+    <td th:text="${status.count}"></td>
     <td  th:text="${blog.name}"></td>
     <td th:text="${blog.blogger}"></td>
-    <td><a th:href="@{${blog.getUrl()}}"></a></td>
+    <td th:text="${blog.category.name}"></td>
+    <td><a th:href="@{${blog.getUrl()}}">Link</a></td>
     <td>
-    <a th:href="@{/{id}/view(id=${blog.id})}">View</a>
-    <a th:href="@{/{id}/update(id=${blog.id})}">Edit</a>
-      <a th:href="@{/{id}/delete(id=${blog.id})}">Delete</a>
+    <a th:href="@{/blog/{id}/view(id=${blog.id})}">View</a>
+    <a th:href="@{/blog/{id}/update(id=${blog.id})}">Edit</a>
+      <a th:href="@{/blog/{id}/delete(id=${blog.id})}">Delete</a>
     </td>
   </tr>
   </tbody>
 </table>
 <div th:if="${mess}">
   <span th:text="${mess}"></span>
+</div>
+
+<div>
+    <a th:href="@{'/blog'(page=${blog.number - 1}, name=${name}, categoryId=${categoryId})}"
+       th:if="${blog.hasPrevious()}">Previous</a>
+    <span th:text="${blog.number + 1}"></span>/<span th:text="${blog.totalPages}"></span>
+    <a th:href="@{'/blog'(page=${blog.number + 1}, name=${name}, categoryId=${categoryId})}"
+       th:if="${blog.hasNext()}">Next</a>
 </div>
 </body>
 </html>
