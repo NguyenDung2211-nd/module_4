@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Chỉnh sửa thông tin bài hát</h3>
+<p>
+    <a th:href="@{/songs}">
+        Quay lại
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/songs/{id}/update(id=${song.id})}" th:object="${song}"
+          method="POST" novalidate="novalidate">
+        <input th:field="*{id}" hidden>
+        <div>
+            <label>tên bài hát</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Ca sĩ</label>
+            <input type="text" th:field="*{artist}"/>
+        </div>
+        <div>
+            <label>Thể loại</label>
+            <input type="text" th:field="*{genre}"/>
+        </div>
+
+        <input type="submit" value="Cập Nhật"/>
+    </form>
+</div>
+</body>
+</html>

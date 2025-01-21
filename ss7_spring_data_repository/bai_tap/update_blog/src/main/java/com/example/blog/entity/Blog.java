@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -25,6 +27,9 @@ public class Blog {
 
     @Column(name = "url", columnDefinition = "VARCHAR(255)")
     private String url;
+
+    @Column(name = "created_at", columnDefinition = "DATETIME")
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")

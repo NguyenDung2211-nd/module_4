@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Danh sách bài hát</h1>
+<a th:href="@{/songs/create}">Thêm bài hát mới</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Stt</th>
+        <th>Tên bài hát</th>
+        <th>Nghệ sĩ</th>
+        <th>Thể loại</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="song, status : ${songs}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${song.name}"></td>
+        <td th:text="${song.artist}"></td>
+        <td th:text="${song.genre}"></td>
+        <td>
+            <a th:href="@{/songs/{id}/update(id=${song.id})}">Sửa</a>
+            <a th:href="@{/songs/{id}/delete(id=${song.id})}">Xóa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div th:if="${mess}">
+    <span th:text="${mess}"></span>
+</div>
+</body>
+</html>

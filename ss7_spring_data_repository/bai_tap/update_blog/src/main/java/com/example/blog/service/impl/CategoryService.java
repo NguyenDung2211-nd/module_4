@@ -1,16 +1,13 @@
 package com.example.blog.service.impl;
 
-import com.example.blog.entity.Blog;
 import com.example.blog.entity.Category;
+import com.example.blog.exception.CategoryNotFoundException;
 import com.example.blog.repository.ICategoryRepository;
 import com.example.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -31,7 +28,12 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public void delete(Integer id) {
-        categoryRepository.deleteById(id);
+        Optional<Category> existingCategory = categoryRepository.findById(id);
+        if (existingCategory.isPresent()) {
+            categoryRepository.deleteById(id);
+        } else {
+            throw new CategoryNotFoundException("Blog with ID " + id + " not found");
+        }
     }
 
     @Override
@@ -47,7 +49,7 @@ public class CategoryService implements ICategoryService {
             categoryToUpdate.setName(b.getName());
             categoryRepository.save(categoryToUpdate);
         } else {
-            throw new NoSuchElementException("Category with id " + id + " not found.");
+            throw new CategoryNotFoundException("Category with id " + id + " not found.");
         }
     }
 

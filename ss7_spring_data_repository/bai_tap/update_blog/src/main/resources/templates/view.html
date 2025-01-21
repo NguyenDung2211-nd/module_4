@@ -15,6 +15,7 @@
   <h4>Name: <span th:text="${blog.name}"></span></h4>
   <p>Blogger: <span th:text="${blog.blogger}"></span></p>
   <p>URL: <a th:href="${blog.url}" th:text="${blog.url}"></a></p>
+    <p>Day Create: <span th:text="${blog.createdAt}"></span></p>
     <p>Category: <span th:text="${blog.category.name}"></span></p>
 </div>
 </body>

@@ -25,10 +25,14 @@
     </div>
     <div>
       <label>Category</label>
-      <select th:field="*{category.id}">
+      <select th:field="*{category}">
         <option th:each="item : ${categoryList}" th:value="${item.id}" th:text="${item.name}"
                 th:selected="${item.id} == ${blog.category.id}"></option>
       </select>
+    </div>
+    <div>
+      <label>Day Create</label>
+      <input type="text" th:field="*{createdAt}"/>
     </div>
     <div>
       <label>URL</label>

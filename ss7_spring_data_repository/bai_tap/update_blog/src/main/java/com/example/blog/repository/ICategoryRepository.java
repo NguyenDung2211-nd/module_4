@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface ICategoryRepository extends JpaRepository<Category, Integer> {
-    List<Category> findAllByDeletedIsFalse();
 }
