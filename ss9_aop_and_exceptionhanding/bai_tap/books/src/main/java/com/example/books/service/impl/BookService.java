@@ -70,6 +70,6 @@ public class BookService implements IBookService {
 
     private int generateBorrowCode() {
         Random random = new Random();
-        return random.nextInt(99999) + 10000;
+        return random.nextInt(90000) + 10000;
     }
 }
