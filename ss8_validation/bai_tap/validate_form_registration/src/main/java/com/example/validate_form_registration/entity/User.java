@@ -25,27 +25,26 @@ public class User {
 
     @Size(min = 1, max = 50, message = "first name phải có kí tự trong khoảng từ 1 đến 50. Bạn hãy lưu ý!")
     @NotBlank(message = "Không được để trống." )
-    @Column(name = "first_name", columnDefinition = "VARCHAR(100)", nullable = false)
+    @Column(name = "first_name", columnDefinition = "VARCHAR(50)", nullable = false)
     private String firstName;
 
     @Size(min = 1, max = 50, message = "first name phải có kí tự trong khoảng từ 1 đến 50. Bạn hãy lưu ý!")
     @NotBlank(message = "Không được để trống.")
-    @Column(name = "last_name", columnDefinition = "VARCHAR(100)", nullable = false)
+    @Column(name = "last_name", columnDefinition = "VARCHAR(50)", nullable = false)
     private String lastName;
 
     @Pattern(regexp = "^(\\+84|0)\\d{9,10}$", message = "Số điện thoại không đúng định dạng.")
     @NotBlank(message = "Không được để trống.")
-    @Column(name = "phone_number", columnDefinition = "VARCHAR(100)", nullable = false)
+    @Column(name = "phone_number", columnDefinition = "VARCHAR(16)", nullable = false, unique = true)
     private String phoneNumber;
-
 
     @Range(min = 18, max = 120, message = "Tuổi phải trong khoảng từ 18 đến 120. Bạn lưu ý nhé.")
     @NotNull (message = "Không được để trống.")
-    @Column(name = "age_user", columnDefinition = "VARCHAR(100)", nullable = false)
+    @Column(name = "age_user", columnDefinition = "INTEGER", nullable = false)
     private Integer age;
 
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "Email không đúng định dạng.")
     @NotBlank(message = "Không được để trống.")
-    @Column(name = "email", columnDefinition = "VARCHAR(100)", nullable = false)
+    @Column(name = "email", columnDefinition = "VARCHAR(50)", nullable = false, unique = true)
     private String email;
 }
