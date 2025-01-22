@@ -19,9 +19,9 @@ public class BookService implements IBookService {
 
     @Override
     public void addBook(Book book) {
-//        if (book.getId() != null && bookRepository.existsById(book.getId())) {
-//            throw new DuplicateKeyException("Sách đã tồn tại");
-//        }
+        if (book.getId() != null && bookRepository.existsById(book.getId())) {
+            throw new DuplicateKeyException("Sách đã tồn tại");
+        }
         bookRepository.save(book);
     }
 
