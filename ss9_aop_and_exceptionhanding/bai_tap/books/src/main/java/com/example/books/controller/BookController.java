@@ -3,7 +3,6 @@ package com.example.books.controller;
 import com.example.books.entity.Book;
 import com.example.books.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,11 +34,12 @@ public class BookController {
                           BindingResult bindingResult,
                           RedirectAttributes redirectAttributes,
                           Model model) {
-        if (bindingResult.hasErrors()) {
+        if(bindingResult.hasErrors()) {
             model.addAttribute("error", bindingResult.getAllErrors());
             return "manager/add";
         }
-        bookService.addBook(book);
+
+            bookService.addBook(book);
         redirectAttributes.addFlashAttribute("message", "Thêm sách thành công");
         return "redirect:/home";
     }
@@ -59,7 +59,7 @@ public class BookController {
     @GetMapping("/{id}/show-return")
     public String showConfirmReturn(@PathVariable int id, Model model) {
         model.addAttribute("book", bookService.findById(id));
-        return "borrow/confirm_return";
+        return "borrow/confirm-return";
     }
 
     @PostMapping("/{id}/borrow")

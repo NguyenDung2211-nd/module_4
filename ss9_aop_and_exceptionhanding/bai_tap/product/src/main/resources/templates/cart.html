@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout::head}">
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+</head>
+<body>
+<div th:replace="~{layout::header}"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form th:action="@{/shop}" th:object="${cart}" method="post">
+                <h3>Total Items: <span th:text="${cart.countItemQuantity()}"></span></h3>
+                <h3>Total Products: <span th:text="${cart.countProductQuantity()}"></span></h3>
+                <table border="1" class="table">
+                    <thead class="text-light bg-dark">
+                    <tr>
+                        <th>Item</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product: ${cart.products}">
+                        <td><img th:src="${product.getKey().img}"></td>
+                        <td th:text="${product.getKey().name}"></td>
+                        <td>
+                            <a id="decrease_button"
+                               th:href="@{/add/__${product.getKey().id}__(action='-')}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-dash" viewBox="0 0 16 16">
+                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                </svg>
+                            </a>
+                            <span th:text="${product.getValue()}"></span>
+                            <a id="increase_button" th:href="@{/add/__${product.getKey().id}__(action='+')}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                            </a>
+                            <a th:href="@{/add/__${product.getKey().id}__(action='x')}">Delete</a>
+                        </td>
+                        <td th:text="${product.getKey().price}"></td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td th:text="${cart.countTotalPayment()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

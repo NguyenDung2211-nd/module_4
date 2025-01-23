@@ -20,7 +20,7 @@ public class BookService implements IBookService {
     @Override
     public void addBook(Book book) {
         if (book.getId() != null && bookRepository.existsById(book.getId())) {
-            throw new DuplicateKeyException("Sách đã tồn tại");
+            throw new DuplicateKeyException("Book already exists");
         }
         bookRepository.save(book);
     }
@@ -70,6 +70,6 @@ public class BookService implements IBookService {
 
     private int generateBorrowCode() {
         Random random = new Random();
-        return random.nextInt(90000) + 10000;
+        return random.nextInt(89999) + 10000;
     }
 }
