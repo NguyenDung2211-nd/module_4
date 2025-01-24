@@ -27,11 +27,6 @@ public class BlogController {
     @Autowired
     private ICategoryService categoryService;
 
-//    @GetMapping("")
-//    public ModelAndView viewAllBlog(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-//        return new ModelAndView("list", "blog", blogService.findAll(page,2));
-//    }
-
     @GetMapping("")
     public ModelAndView viewAllBlog(
             @RequestParam(value = "page", defaultValue = "0") int page,

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Danh sách các Category</h1>
+<div th:if="${mess}" style="color: green; font-weight: bold;">
+    <p th:text="${mess}"></p>
+</div>
+<a href="/category/create">Tạo mới Category</a>
+<table>
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Tên danh mục</th>
+        <th>Chức năng</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="category, status : ${category}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${category.name}"></td>
+        <td>
+            <a th:href="@{/category/{id}/update(id=${category.id})}">Sửa</a>
+            <a th:href="@{/category/{id}/delete(id=${category.id})}">Xóa</a>
+            <a th:href="@{/category/{id}/view(id=${category.id})}">View</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

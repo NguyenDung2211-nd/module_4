@@ -25,7 +25,7 @@ public class ShoppingController {
         return new Cart();
     }
 
-    @GetMapping("/shopping_cart")
+    @GetMapping("/shopping-cart")
     public ModelAndView showCart(@ModelAttribute("cart") Cart cart) {
         ModelAndView mav = new ModelAndView("/cart");
         mav.addObject("cart", cart);

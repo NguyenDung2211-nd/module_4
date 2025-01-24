@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <th:block th:insert="~{/layout::library}"></th:block>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .notify {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notify .btn {
+      font-size: 16px;
+    }
+
+    .alert {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    table {
+      margin-top: 20px;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table thead {
+      background-color: #343a40;
+      color: white;
+    }
+
+    table th, table td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #dee2e6;
+    }
+
+    table th {
+      font-weight: bold;
+    }
+
+    table tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    table a {
+      margin-right: 5px;
+      text-decoration: none;
+    }
+
+    .btn {
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .btn-info {
+      background-color: #17a2b8;
+      border: none;
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      border: none;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+      border: none;
+      color: black;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border: none;
+    }
+
+  </style>
+</head>
+<body>
+<form action="" method="get">
+  <input type="text" name="name" placeholder="Nhập tên bài viết" th:value="${name}">
+  <button type="submit">Tìm kiếm</button>
+</form>
+<div class="notify">
+  <a href="/blog/create">Thêm mới Blog</a>
+</div>
+<table id="blog">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Blogger</th>
+      <th>Category</th>
+    <th>View</th>
+    <th>Day Create</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="blog, status : ${blog}">
+    <td th:text="${status.count}"></td>
+    <td  th:text="${blog.name}"></td>
+    <td th:text="${blog.blogger}"></td>
+    <td th:text="${blog.category.name}"></td>
+    <td><a th:href="@{${blog.getUrl()}}">Link</a></td>
+    <td th:text="${blog.createdAt}"></td>
+    <td>
+    <a th:href="@{/blog/{id}/view(id=${blog.id})}">View</a>
+    <a th:href="@{/blog/{id}/update(id=${blog.id})}">Edit</a>
+      <a th:href="@{/blog/{id}/delete(id=${blog.id})}">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div th:if="${mess}">
+  <span th:text="${mess}"></span>
+</div>
+
+<div>
+    <a th:href="@{'/blog'(page=${blog.number - 1}, name=${name}, categoryId=${categoryId})}"
+       th:if="${blog.hasPrevious()}">Previous</a>
+    <span th:text="${blog.number + 1}"></span>/<span th:text="${blog.totalPages}"></span>
+    <a th:href="@{'/blog'(page=${blog.number + 1}, name=${name}, categoryId=${categoryId})}"
+       th:if="${blog.hasNext()}">Next</a>
+</div>
+</body>
+</html>
